@@ -1,28 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define OK 1    //º¯Êý½á¹û×´Ì¬
+#define OK 1    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 #define ERROR 0
 #define MAX 100
-typedef int Status;//º¯Êý½á¹û×´Ì¬ÀàÐÍ
+typedef int Status;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½
 
-typedef struct{
-    int i,j;    //ÈýÔª×éµÄÐÐºÅ¡¢ÁÐºÅ£»
-    int e;      //ÈýÔª×éµÄÖµ;
+typedef struct Triple
+{
+    int i,j;    //ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ÐºÅ¡ï¿½ï¿½ÐºÅ£ï¿½
+    int e;      //ï¿½ï¿½Ôªï¿½ï¿½ï¿½Öµ;
 }Triple;
 
-typedef struct{
-    Triple data[MAX];//·ÇÁãÔªÈýÔª×é±íÊ¾
-    int rpos[MAX];  //Ï¡Êè¾ØÕóÈýÔª×é¸÷ÐÐÆðÊ¼×ø±ê
-    int mu,nu,tu;   //¾ØÕóµÄÐÐÊý¡¢ÁÐÊýºÍ·ÇÁãÔª¸öÊý
+typedef struct Matrix
+{
+    Triple data[MAX];//ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½Ôªï¿½ï¿½ï¿½Ê¾
+    int rpos[MAX];  //Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+    int mu,nu,tu;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½
 }Matrix;
 
 void Input(Matrix *M,Matrix *N);
 Status CreateMatrix(Matrix *M);
 Status PrintMatrix(Matrix M);
 Status PlusMatrix(Matrix M, Matrix N, Matrix *D);
-Status MultMatrix(Matrix M, Matrix N, Matrix *Q);
 
-int main(){
+int main()
+{
     //freopen("in.txt","r",stdin);
     //freopen("output.txt","w",stdout);
     Matrix M,N,D,Q;
@@ -34,7 +36,8 @@ int main(){
     return 0;
 }
 
-void Input(Matrix *M,Matrix *N){
+void Input(Matrix *M,Matrix *N)
+{
     printf("Please input the rows and cols and number of the nonzero element:");
     if(!CreateMatrix(M))
         printf("Error Create M!\n");
@@ -46,85 +49,94 @@ void Input(Matrix *M,Matrix *N){
     PrintMatrix(*N);
 }
 
-Status CreateMatrix(Matrix *M){//´´½¨Ï¡Êè¾ØÕó£¬²ÉÈ¡ÈýÔª×é´æ´¢
-    int num[MAX]={0}; //¶ÔÓ¦ÐÐ·ÇÁãÔª¸öÊý
-    int flag[MAX][MAX]={0};//±ê¼Ç¶ÔÓ¦Î»ÖÃÊÇ·ñÒÑÓÐ·ÇÁãÔª
-    int i,j,e;  //·ÇÁãÔªÈýÔª×éµÄÁÙÊ±´æ´¢±äÁ¿
+Status CreateMatrix(Matrix *M)
+{//ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ó£¬²ï¿½È¡ï¿½ï¿½Ôªï¿½ï¿½æ´¢
+    int num[MAX]={0}; //ï¿½ï¿½Ó¦ï¿½Ð·ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½
+    int flag[MAX][MAX]={0};//ï¿½ï¿½Ç¶ï¿½Ó¦Î»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½Ôª
+    int i,j,e;  //ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½
     scanf(" %d%d%d",&M->mu,&M->nu,&M->tu);
-    while(M->mu < 0 || M->nu < 0 || M->tu > M->mu * M->nu){//ÅÐ¶Ï¾ØÕóÐÐÊý¡¢ÁÐÊýºÍ·ÇÁãÔª¸öÊýÊÇ·ñºÏ·¨
+    while(M->mu < 0 || M->nu < 0 || M->tu > M->mu * M->nu)
+    {//ï¿½Ð¶Ï¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ï·ï¿½
         printf("The rows,cols and number of nonzero element is out of normal range!!\n");
         printf("Please input again:");
         scanf(" %d%d%d",&M->mu,&M->nu,&M->tu);
     }
 
-    if(!M->tu) return OK;//È«²¿ÎªÁãÔªËØ£¬Ö±½Ó·µ»Ø
+    if(!M->tu)
+        return OK;//È«ï¿½ï¿½Îªï¿½ï¿½Ôªï¿½Ø£ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½
 
-    for(int k = 1;k <= M->tu;k++){//ÊäÈë·ÇÁãÔª
+    for(int k = 1;k <= M->tu;k++)
+    {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôª
         printf("Please input the row,col,and data of element:");
         scanf(" %d%d%d",&i,&j,&e);
-        while(i <= 0 || i > M->mu || j <= 0 || j > M->nu){//ÅÐ¶ÏÊäÈë·ÇÁãÔªÐÐºÅ¡¢ÁÐºÅºÏ·¨
+        while(i <= 0 || i > M->mu || j <= 0 || j > M->nu)
+        {//ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ÐºÅ¡ï¿½ï¿½ÐºÅºÏ·ï¿½
             printf("The row,col and data of element is out of normal range!!\n");
             printf("Please input again:");
             scanf(" %d%d%d",&i,&j,&e);
         }
-        while(!e){//ÅÐ¶ÏÊÇ·ñ·ÇÁãÔª
+        while(!e)
+        {//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ôª
             printf("Zero element occurs!\n");
             scanf(" %d",&e);
         }
-        if(!flag[i][j]){//ÅÐ¶Ï¸ÃÎ»ÖÃÊÇ·ñÒÑÓÐ·ÇÁãÔª
+        if(!flag[i][j])
+        {//ï¿½Ð¶Ï¸ï¿½Î»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½Ôª
             flag[i][j] = 1;
         }
-        else{
+        else
+        {
             printf("Here exists!\n");
             continue;
         }
         int l,m;
-        //Ñ°ÕÒ¸ÃÈýÔª×éµÄÎ»ÖÃ
-        if(k==1){
+        //Ñ°ï¿½Ò¸ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½Î»ï¿½ï¿½
+        if(k==1)
+        {
             M->data[k].i = i;
             M->data[k].j = j;
             M->data[k].e = e;
             continue;
         }
         for(l = 1;l < k && (i > M->data[l].i || (i == M->data[l].i && j > M->data[l].j));l++);
-        for(m = k-1;m >= l;m--){//ÒÀ´ÎÏòºóÒÆ¶¯
+        for(m = k-1;m >= l;m--){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
             M->data[m+1] = M->data[m];
             //printf("%d\n",M->data[m+1].i);
         }
-        //±£´æÊý¾Ý
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         M->data[l].i = i;
         M->data[l].j = j;
         M->data[l].e = e;
         //printf("%d\t%d\t%d",M->data[k].i,M->data[k].j,M->data[k].e);
         //printf("%d\n",k);
     }
-    //Çó¸÷ÐÐ·ÇÁãÔªÆðÊ¼Î»ÖÃ
-    if(M->tu){//ÅÐ¶Ï·ÇÁãÔª¸öÊýÊÇ·ñÎª0
+    //ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½Ôªï¿½ï¿½Ê¼Î»ï¿½ï¿½
+    if(M->tu){//ï¿½Ð¶Ï·ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îª0
         for(int m = 1;m <= M->tu;m++)
-            ++num[M->data[m].i];//ÇóMÖÐÃ¿ÐÐ·ÇÁãÔªËØ¸öÊý
-        M->rpos[1] = 1;//ÆðÊ¼Î»ÖÃ¸³Öµ
+            ++num[M->data[m].i];//ï¿½ï¿½Mï¿½ï¿½Ã¿ï¿½Ð·ï¿½ï¿½ï¿½Ôªï¿½Ø¸ï¿½ï¿½ï¿½
+        M->rpos[1] = 1;//ï¿½ï¿½Ê¼Î»ï¿½Ã¸ï¿½Öµ
         for(int m = 2;m <= M->tu;m++)
             M->rpos[m] = M->rpos[m-1] + num[m-1];
     }
     return OK;
 }
 
-Status PlusMatrix(Matrix M, Matrix N, Matrix *D){//ÇóÏ¡Êè¾ØÕóµÄºÍQ=M+N
-    if(M.mu != N.mu || M.nu != N.nu)//¼ì²éÏ¡Êè¾ØÕóMºÍNµÄÐÐÊýºÍÁÐÊýÊÇ·ñ¶ÔÓ¦ÏàµÈ
+Status PlusMatrix(Matrix M, Matrix N, Matrix *D){//ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½Q=M+N
+    if(M.mu != N.mu || M.nu != N.nu)//ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½
         return ERROR;
-    int i = 1,j = 1,k = 1;//¸÷¾ØÕóÈýÔª×éÒÆ¶¯ÁÙÊ±±äÁ¿
+    int i = 1,j = 1,k = 1;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
     D->mu = M.mu;
     D->nu = M.nu;
     D->tu = 0;
-    if(M.tu*N.tu == 0)//Áã¾ØÕó£¬Ö±½Ó·µ»Ø
+    if(M.tu*N.tu == 0)//ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½
         return OK;
-    while(i <= M.tu && j <= N.tu){//MºÍN¾ù²»Îª¿Õ
-        if(M.data[i].i < N.data[j].i || (M.data[i].i == N.data[j].i && M.data[i].j < N.data[j].j)){//ÒÔÐÐÎªÖ÷Ðò£¬MÖÐµÄ½ÚµãÔÚNÇ°
+    while(i <= M.tu && j <= N.tu){//Mï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
+        if(M.data[i].i < N.data[j].i || (M.data[i].i == N.data[j].i && M.data[i].j < N.data[j].j)){//ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Mï¿½ÐµÄ½Úµï¿½ï¿½ï¿½NÇ°
             D->tu++;
-            D->data[k++] = M.data[i++];//½á¹¹Ìå¸³Öµ
+            D->data[k++] = M.data[i++];//ï¿½á¹¹ï¿½å¸³Öµ
         }
-        else if(M.data[i].i == N.data[j].i && M.data[i].j == N.data[j].j){//MºÍN½Úµã¶ÔÓ¦
-            if(M.data[i].e+N.data[j].e){//MºÍNÏà¼ÓÖ®ºÍ²»Îª0
+        else if(M.data[i].i == N.data[j].i && M.data[i].j == N.data[j].j){//Mï¿½ï¿½Nï¿½Úµï¿½ï¿½Ó¦
+            if(M.data[i].e+N.data[j].e){//Mï¿½ï¿½Nï¿½ï¿½ï¿½Ö®ï¿½Í²ï¿½Îª0
                 D->data[k].i=M.data[i].i;
                 D->data[k].j=M.data[i].j;
                 D->data[k++].e=M.data[i].e+N.data[j].e;
@@ -134,16 +146,16 @@ Status PlusMatrix(Matrix M, Matrix N, Matrix *D){//ÇóÏ¡Êè¾ØÕóµÄºÍQ=M+N
             i++;
             j++;
         }
-        else if(M.data[i].i > N.data[j].i ||(M.data[i].i == N.data[j].i && M.data[i].j > N.data[j].j)){//N½ÚµãÔÚMÇ°
+        else if(M.data[i].i > N.data[j].i ||(M.data[i].i == N.data[j].i && M.data[i].j > N.data[j].j)){//Nï¿½Úµï¿½ï¿½ï¿½MÇ°
             D->tu++;
             D->data[k++] = N.data[j++];
         }
     }
-    while(i <= M.tu){//½«¾ØÕóNµÄÊ£ÓàÔªËØ²åÈë¾ØÕó
+    while(i <= M.tu){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½Ê£ï¿½ï¿½Ôªï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         D->tu++;
         D->data[k++] = M.data[i++];
     }
-    while(j <= N.tu){//½«¾ØÕóMµÄÊ£ÓàÔªËØ²åÈë¾ØÕó
+    while(j <= N.tu){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½Ê£ï¿½ï¿½Ôªï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         D->tu++;
         D->data[k++] = N.data[j++];
     }
@@ -153,36 +165,36 @@ Status PlusMatrix(Matrix M, Matrix N, Matrix *D){//ÇóÏ¡Êè¾ØÕóµÄºÍQ=M+N
     return OK;
 }
 
-Status MultMatrix(Matrix M, Matrix N, Matrix *Q){//½øÐÐ¾ØÕóMºÍNÏà³Ë
+Status MultMatrix(Matrix M, Matrix N, Matrix *Q){//ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½Mï¿½ï¿½Nï¿½ï¿½ï¿½
     int arow,brow,ccol,ctemp[MAX];
-    int p,q,tp,i,t;//p,q,iÎªÖÐ¼ä±äÁ¿£»tp,t·Ö±ðÎªMµÄ¸÷ÐÐÎ»ÖÃÉÏÏÞ
-    if(M.nu != N.mu)//ÅÐ¶ÏMµÄÁÐÊýºÍNµÄÐÐÊýÊÇ·ñÏàµÈ
+    int p,q,tp,i,t;//p,q,iÎªï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tp,tï¿½Ö±ï¿½ÎªMï¿½Ä¸ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    if(M.nu != N.mu)//ï¿½Ð¶ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
         return ERROR;
     Q->mu = M.mu;
     Q->nu = N.nu;
     Q->tu = 0;
-    if(M.tu*N.tu == 0)//ÅÐ¶Ï¾ØÕóÊÇ·ñÎª·ÇÁã¾ØÕó
+    if(M.tu*N.tu == 0)//ï¿½Ð¶Ï¾ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         return OK;
-    for(arow = 1;arow <= M.mu;arow++){//´¦ÀíMµÄÃ¿Ò»ÐÐ
-        for(i = 1;i <= N.nu;i++)//ÔªËØÀÛ¼ÓÇåÁã
+    for(arow = 1;arow <= M.mu;arow++){//ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½Ã¿Ò»ï¿½ï¿½
+        for(i = 1;i <= N.nu;i++)//Ôªï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½
             ctemp[i] = 0;
-        Q->rpos[arow] = Q->tu+1;//ÆðÊ¼×ø±ê¸³Öµ
-        if(arow < M.mu)//ÕÒµ½¸ÃÐÐÒÆ¶¯´ÎÊýÉÏÏÞ
+        Q->rpos[arow] = Q->tu+1;//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ê¸³Öµ
+        if(arow < M.mu)//ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             tp = M.rpos[arow+1];
         else
             tp = M.tu+1;
-        for(p = M.rpos[arow];p < tp;p++){//ÇóQÖÐµÚarowÐÐµÄ·ÇÁãÔª
+        for(p = M.rpos[arow];p < tp;p++){//ï¿½ï¿½Qï¿½Ðµï¿½arowï¿½ÐµÄ·ï¿½ï¿½ï¿½Ôª
             brow = M.data[p].j;
-            if(brow < N.mu)//ÕÒµ½NÖÐ¸ÃÐÐÒÆ¶¯´ÎÊýÉÏÏÞ
+            if(brow < N.mu)//ï¿½Òµï¿½Nï¿½Ð¸ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 t = N.rpos[brow+1];
             else
                 t = N.tu+1;
             for(q = N.rpos[brow];q < t;q++){
-                ccol = N.data[q].j;//³É¼¨ÔªËØÔÚNÖÐÁÐºÅ
+                ccol = N.data[q].j;//ï¿½É¼ï¿½Ôªï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Ðºï¿½
                 ctemp[ccol] += M.data[p].e * N.data[q].e;
             }
         }
-        for(ccol = 1;ccol <= Q->nu;ccol++){//´æ´¢·ÇÁãÔª
+        for(ccol = 1;ccol <= Q->nu;ccol++){//ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½Ôª
             if(ctemp[ccol]){
                 Q->tu++;
                 Q->data[Q->tu].i = arow;
@@ -196,12 +208,12 @@ Status MultMatrix(Matrix M, Matrix N, Matrix *Q){//½øÐÐ¾ØÕóMºÍNÏà³Ë
     return OK;
 }
 
-Status PrintMatrix(Matrix M){//´òÓ¡¾ØÕó
-    int i,j,k = 1;//ÁÙÊ±ÖÐ¼ä±äÁ¿
+Status PrintMatrix(Matrix M){//ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½
+    int i,j,k = 1;//ï¿½ï¿½Ê±ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½
     printf("The matrix is:\n");
-    for(i = 1;i <= M.mu;i++){//±éÀú¾ØÕó
+    for(i = 1;i <= M.mu;i++){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         for(j = 1;j <= M.nu;j++){
-            if(i == M.data[k].i && j == M.data[k].j){//´æÔÚÈýÔª×éÆ¥Åä£¬Êä³ö
+            if(i == M.data[k].i && j == M.data[k].j){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½Æ¥ï¿½ä£¬ï¿½ï¿½ï¿½
                 printf("%d\t",M.data[k].e);
                 k++;
             }
