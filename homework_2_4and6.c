@@ -97,77 +97,51 @@ Status Opposite(SingleList* L)
     }
 }
 
-//Status Merge(SingleList* L1,SingleList* L2)
-//{
-//	Node* res,*ret; 
-//	Node* p = L1->first;  
-//    Node* q = L2->first;
-//    if(p->element < q->element)  
-//    {  
-//        res = p;  
-//        p = p->link;  
-//    }  
-//    else  
-//    {  
-//        res = q;  
-//        q = q->link;  
-//    } 
-//    ret = res;  
-//    while(p && q)  
-//    {  
-//        if(p->element < q->element)  
-//        {  
-//            res->link = p;  
-//            res = p;  
-//            p = p->link;  
-//        }  
-//        else  
-//        {  
-//            res->link = q;  
-//            res = q;  
-//            q = q->link;  
-//        }  
-//    }  
-//	while(p)  
-//    {  
-//	    res->link = p;  
-//        res = p;  
-//        p = p->link;  
-//    }  
-//    while(q)  
-//    {  
-//        res->link = q;  
-//        res = q;  
-//        q = q->link;  
-//    }
-//	L1->first = ret;  
-//    return OK;   
-//} 
- 
-Status Merge(SingleList* L1,SingleList* L2)  
-{  
-	Node* head1 = L1->first;
-	Node* head2 = L2->first;
-    Node* res;  
-    if(->element < head2->element)  
-    {  
-        res = head1;  
-        res->link = Merge(head1->link, head2);  
-    }  
-    else  
-    {  
-        res = head2;  
-        res->link = Merge(head1, head2->link);  
-    }  
-    L1->first = res; 
-	return OK; 
-}  
-
+Status Merge(SingleList* L1,SingleList* L2,SingleList* L3)
+{
+	Node* ysk;
+	Node* p1 = NULL;
+    Node* p2 = NULL;
+	p1 = L1->first;
+	p2 = L2->first; 
+	if(L1->first->element < L2->first->element)
+	{
+		L3->first = L1->first;
+		p1 = p1->link;
+		while(p1 != NULL || p2 != NULL)
+		{
+			if(p1->element <= p2->element)
+			{
+				ysk->element = p1
+			}
+		}
+	}	
+	else
+	{
+		L3->first = L1->first;	
+	}
+	while(p1 != NULL || p2 != NULL)
+	{
+		if(p1->element <= p2->element)
+        {
+            pcur->link = p1;
+            pcur = p1;
+            p1 = p1->link;
+        }
+        else
+        {
+            pcur->link = p2;
+            pcur = p2;
+            p2 = p2->link;
+        }
+        pcur = L1->first;
+	}
+}
+	
 int main()
 {
 	int i,j = 0;
 	int x = 0;
-	Node* p;
 	SingleList list1,list2;
 	Init(&list1);
 	Init(&list2);
