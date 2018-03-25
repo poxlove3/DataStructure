@@ -97,45 +97,23 @@ Status Opposite(SingleList* L)
     }
 }
 
-Status Merge(SingleList* L1,SingleList* L2,SingleList* L3)
+Status Merge(SingleList* L1,SingleList* L2)
 {
-	Node* ysk;
-	Node* p1 = NULL;
-    Node* p2 = NULL;
-	p1 = L1->first;
-	p2 = L2->first; 
-	if(L1->first->element < L2->first->element)
-	{
-		L3->first = L1->first;
-		p1 = p1->link;
-		while(p1 != NULL || p2 != NULL)
-		{
-			if(p1->element <= p2->element)
-			{
-				ysk->element = p1
-			}
-		}
-	}	
-	else
-	{
-		L3->first = L1->first;	
-	}
-	while(p1 != NULL || p2 != NULL)
-	{
-		if(p1->element <= p2->element)
+    int index = 0;
+	Node* p = L1->first->link;
+    Node* q = L2->first->link;
+    while(q != NULL)
+    {
+        while((p != NULL) && (p->element < q->element))
         {
-            pcur->link = p1;
-            pcur = p1;
-            p1 = p1->link;
+            p = p->link;
+            index++;
         }
-        else
-        {
-            pcur->link = p2;
-            pcur = p2;
-            p2 = p2->link;
-        }
-        pcur = L1->first;
-	}
+        Insert(L1,index,q->element);
+        index++;
+        q = q->link;
+    }
+    return OK;
 }
 	
 int main()
@@ -151,10 +129,12 @@ int main()
 	}
 	for(j = 0;j < 10;j++)
 	{
-		Insert(&list2,j - 1,j + 10);
+		Insert(&list2,j - 1,j + 5);
 	}
 	Display(list1);
 	Display(list2);
+	Opposite(&list1);
+	Display(list1);
 	Opposite(&list1);
 	Display(list1);
 	Merge(&list1,&list2);
