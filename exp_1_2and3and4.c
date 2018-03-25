@@ -149,15 +149,32 @@ Status Destory(headerList* L)
     return 0;
 }
 
-Status SortList(headerList* L)
+void SortList(headerList* L)
 {
+	int i,j,max,temp;
+	Node* p;
+	Node* q;
 	if(L->first->link == NULL || L->first->link->link == NULL)
 	{
 		Display(*L);
+		return;
 	}	
-	else
+	p = L->first->link;
+	q = p;
+	for(i = 0;i < L->n - 1;i++)
 	{
-		int flag = 0;
+		for(j = i + 1;j < L->n;j++)
+		{
+			q = q->link; 
+			if(q->element > p->element)
+			{
+				temp = q->element;
+				q->element = p->element;
+				p->element = temp;
+			}
+		}
+		p = p->link;
+		q = p;
 	}
 }
 
@@ -170,8 +187,10 @@ int main()
 	for(i = 0;i < 10;i++)
 	{
 		j = rand() % 100;
-		Insert(&list,i,j);
+		Insert(&list,i,j+10);
 	}
+	Display(list);
+	SortList(&list);
 	Display(list);
 	Reverse(&list);
 	Display(list);
