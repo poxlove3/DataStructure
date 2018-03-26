@@ -21,6 +21,41 @@ typedef struct headerList
 
 typedef int Status;
 
+Status Init(headerList* L);
+Status Insert(headerList* L,int i,int x);
+Status Output(headerList L);
+void Display(headerList L);
+Status Find(headerList L,int i,int* x);
+Status Delete(headerList* L,int i);
+Status Reverse(headerList* L);
+Status Destory(headerList* L);
+void SortList(headerList* L);
+
+int main()
+{
+	int i,j,x = 0;
+	headerList list;
+	Init(&list);
+	Display(list);
+	for(i = 0;i < 10;i++)
+	{
+		j = rand() % 100;
+		Insert(&list,i,j+10);
+	}
+	Display(list);
+	SortList(&list);
+	Display(list);
+	Reverse(&list);
+	Display(list);
+	Find(list,5,&x);
+	printf("the element is %d\n",x);
+	Delete(&list,4);
+	Display(list);
+	Destory(&list);
+	Display(list);
+	return 0;
+}
+
 Status Init(headerList* L)
 {
 	Node* pNode;
@@ -178,28 +213,4 @@ void SortList(headerList* L)
 	}
 }
 
-int main()
-{
-	int i,j,x = 0;
-	headerList list;
-	Init(&list);
-	Display(list);
-	for(i = 0;i < 10;i++)
-	{
-		j = rand() % 100;
-		Insert(&list,i,j+10);
-	}
-	Display(list);
-	SortList(&list);
-	Display(list);
-	Reverse(&list);
-	Display(list);
-	Find(list,5,&x);
-	printf("the x's element is%d\n",x);
-	Delete(&list,4);
-	Display(list);
-	Destory(&list);
-	Display(list);
-	return 0;
-}
 

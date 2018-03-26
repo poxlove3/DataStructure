@@ -21,6 +21,40 @@ typedef struct SingleList
 
 typedef int Status;
 
+Status Init(SingleList* L);
+Status Insert(SingleList* L,int i,int x);
+Status Output(SingleList L);
+void Display(SingleList L);
+Status Opposite(SingleList* L);
+Status Merge(SingleList* L1,SingleList* L2);
+
+int main()
+{
+	int i,j = 0;
+	int x = 0;
+	SingleList list1,list2;
+	Init(&list1);
+	Init(&list2);
+	for(i = 0;i < 10;i++)
+	{
+		Insert(&list1,i - 1,i);
+	}
+	for(j = 0;j < 10;j++)
+	{
+		Insert(&list2,j - 1,j + 5);
+	}
+	Display(list1);
+	Display(list2);
+	Opposite(&list1);
+	Display(list1);
+	Opposite(&list1);
+	Display(list1);
+	Merge(&list1,&list2);
+	Display(list1);
+	return 0;
+} 
+
+
 Status Init(SingleList* L)
 {
 	Node* p;
@@ -116,28 +150,3 @@ Status Merge(SingleList* L1,SingleList* L2)
     return OK;
 }
 	
-int main()
-{
-	int i,j = 0;
-	int x = 0;
-	SingleList list1,list2;
-	Init(&list1);
-	Init(&list2);
-	for(i = 0;i < 10;i++)
-	{
-		Insert(&list1,i - 1,i);
-	}
-	for(j = 0;j < 10;j++)
-	{
-		Insert(&list2,j - 1,j + 5);
-	}
-	Display(list1);
-	Display(list2);
-	Opposite(&list1);
-	Display(list1);
-	Opposite(&list1);
-	Display(list1);
-	Merge(&list1,&list2);
-	Display(list1);
-	return 0;
-} 

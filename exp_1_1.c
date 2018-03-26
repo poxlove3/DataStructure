@@ -15,6 +15,37 @@ typedef struct
 }SeqList;
  
 typedef int Status;
+
+
+Status Init(SeqList* L,int mSize);
+Status Find(SeqList* L,int i,int* x);
+Status Insert(SeqList* L,int i,int x);
+Status Delete(SeqList* L,int i);
+Status Output(SeqList L);
+void Destory(SeqList *L);
+void Display(SeqList L);
+
+int main()
+{
+	int i;
+	SeqList list;
+	Init(&list,10);
+	for(i = 0;i < 9;i++)
+	{
+		Insert(&list,i - 1,i);
+	}
+	Display(list);
+	Delete(&list,0);
+	Display(list);
+	Insert(&list,1,9);
+	Display(list);
+	Destory(&list);
+    Display(list);
+	return 0; 
+}
+
+
+
 Status Init(SeqList* L,int mSize)
 {
 	L->MaxLength = mSize;
@@ -100,29 +131,9 @@ void Destory(SeqList *L)
 
 void Display(SeqList L)
 {
+	printf("Now the number of list is %d\n",L.n);
 	printf("Now the list is:");
 	Output(L);
 	printf("\n");
 } 
 
-int main()
-{
-	int i;
-	SeqList list;
-	Init(&list,10);
-	for(i = 0;i < 9;i++)
-	{
-		Insert(&list,i - 1,i);
-	}
-    printf("Now the number of list is %d\n",list.n);
-	Display(list);
-	Delete(&list,0);
-	printf("Now the number of list is %d\n",list.n);
-	Display(list);
-	Insert(&list,0,9);
-	printf("Now the number of list is %d\n",list.n);
-	Display(list);
-	Destory(&list);
-    Display(list);
-	return 0; 
-}

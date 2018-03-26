@@ -7,6 +7,7 @@
 #define NotPresent 4
 #define Duplicate 5
 typedef int Status;
+
 typedef struct SeqList
 {
  	int n;
@@ -14,6 +15,23 @@ typedef struct SeqList
  	int* element;
 }SeqList;
 
+Status Init(SeqList* L,int mSize,int number);
+Status Opposite(SeqList* L);
+Status Output(SeqList L);
+
+int main()
+{
+    SeqList list;
+    Init(&list,10,10);
+    printf("Old linear list:\n");
+    Output(list);
+    Opposite(&list);
+    printf("New linear list:\n");
+    Output(list);
+    free(list.element);
+    //free(list);
+    return 0;
+}
 Status Init(SeqList* L,int mSize,int number)
 { 
 	int j = 0;
@@ -57,19 +75,7 @@ Status Output(SeqList L)
 	return 0;
 } 
 
-int main()
-{
-    SeqList list;
-    Init(&list,10,10);
-    printf("Old linear list:\n");
-    Output(list);
-    Opposite(&list);
-    printf("New linear list:\n");
-    Output(list);
-    free(list.element);
-    //free(list);
-    return 0;
-}
+
 
 /*用异或交换两个变量的值的代码
 a = a ^ b;
