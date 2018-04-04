@@ -10,25 +10,26 @@ typedef struct BinaryTreeNode
     struct BinaryTreeNode* rChild;
 }BinaryTreeNode;
 
+BinaryTreeNode* PreCreateBinaryTree(BinaryTreeNode* BTNode);
 void PreOrderTransverse(BinaryTreeNode* BinaryTreeRoot);
-void InOrderTransverse(BinaryTreeNode* BinaryTreeRoot);
-void PostOrderTransverse(BinaryTreeNode* BinaryTreeRoot);
-BinaryTreeNode* PreCreateBinaryTrlsee(BinaryTreeNode* BTNode);
 BinaryTreeNode* InCreateBinaryTree(BinaryTreeNode* BTNode);
+void InOrderTransverse(BinaryTreeNode* BinaryTreeRoot);
 BinaryTreeNode* PostCreateBinaryTree(BinaryTreeNode* BTNode);
+void PostOrderTransverse(BinaryTreeNode* BinaryTreeRoot);
 
 int main()
 {
     BinaryTreeNode* BTree;
-    BinaryTreeNode* BBTree;
-    BBTree = InCreateBinaryTree(BTree);
-    PreOrderTransverse(BBTree);
-    return OK;
+    BTree = InCreateBinaryTree(BTree);
+    PostOrderTransverse(BTree);
+    printf("\n");
+    return 0;
 }
 
 BinaryTreeNode* PreCreateBinaryTree(BinaryTreeNode* BTNode)
 {
     char ch;
+
     ch = getchar();
     if(ch == '#')
     {
@@ -53,31 +54,6 @@ void PreOrderTransverse(BinaryTreeNode* BinaryTreeRoot)
     printf("%c",BinaryTreeRoot->Data);
     PreOrderTransverse(BinaryTreeRoot->lChild);
     PreOrderTransverse(BinaryTreeRoot->rChild);
-    return;
-}
-
-void InOrderTransverse(BinaryTreeNode* BinaryTreeRoot)
-{
-    if(BinaryTreeRoot == NULL)
-    {
-        return;
-    }
-    InOrderTransverse(BinaryTreeRoot->lChild);
-    printf("%c",BinaryTreeRoot->Data);
-    InOrderTransverse(BinaryTreeRoot->rChild);
-    return;
-}
-
-void PostOrderTransverse(BinaryTreeNode* BinaryTreeRoot)
-{
-    if(BinaryTreeRoot == NULL)
-    {
-        return;
-    }
-    PostOrderTransverse(BinaryTreeRoot->lChild);
-    PostOrderTransverse(BinaryTreeRoot->rChild);
-    printf("%c",BinaryTreeRoot->Data);
-    return;
 }
 
 BinaryTreeNode* InCreateBinaryTree(BinaryTreeNode* BTNode)
@@ -98,6 +74,17 @@ BinaryTreeNode* InCreateBinaryTree(BinaryTreeNode* BTNode)
     return BTNode;
 }
 
+void InOrderTransverse(BinaryTreeNode* BinaryTreeRoot)
+{
+    if(BinaryTreeRoot == NULL)
+    {
+        return;
+    }
+    InOrderTransverse(BinaryTreeRoot->lChild);
+    printf("%c",BinaryTreeRoot->Data);
+    InOrderTransverse(BinaryTreeRoot->rChild);
+}
+
 BinaryTreeNode* PostCreateBinaryTree(BinaryTreeNode* BTNode)
 {
     char ch;
@@ -113,5 +100,15 @@ BinaryTreeNode* PostCreateBinaryTree(BinaryTreeNode* BTNode)
         BTNode->rChild = InCreateBinaryTree(BTNode->rChild);
         BTNode->Data = ch;
     }
-    return BTNode;
+}
+
+void PostOrderTransverse(BinaryTreeNode* BinaryTreeRoot)
+{
+    if(BinaryTreeRoot == NULL)
+    {
+        return;
+    }
+    PostOrderTransverse(BinaryTreeRoot->lChild);
+    PostOrderTransverse(BinaryTreeRoot->rChild);
+    printf("%c",BinaryTreeRoot->Data);
 }
