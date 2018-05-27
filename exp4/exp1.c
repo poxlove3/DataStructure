@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define Maxsiaze 200
+#define Maxsize 200
 
 typedef int KeyType;
 typedef int DataType;
@@ -14,7 +14,7 @@ typedef struct entry
 typedef struct list
 {
 	int n;
-	Entry D[Maxsiaze];
+	Entry D[Maxsize];
 }List;
 
 int findMin(List list,int startIndex)
@@ -133,6 +133,74 @@ void QuickSort(List *list)
 	quickSort(list,0,list-> n - 1);
 }
 
+void merge(List *list,Entry *temp,int low,int n1 ,int n2)
+{
+	int i = low;
+	int j = low + n1;
+
+	while(i <= low + n1 - 1 && j <= low + n1 + n2 - 1)
+	{
+		if (list -> D[i].key <= list -> D[j].key)
+		{
+			*temp++ = list -> D[i++];
+			/* code */
+		}
+		else
+		{
+			*temp++ = list -> D[j++];
+		}
+	}
+
+	while(i <= low + n1 - 1)
+	{
+		*temp++ = list -> D[i++];
+	}
+
+	while(j <= low + n1 + n2 - 1)
+	{
+		*temp++ = list -> D[j++];
+	}
+}
+
+void mergeSort(List *list)
+{
+	Entry temp[Maxsize];
+	// int low,n1,n2,i,size = 1;
+
+	int low = 0;
+	int n1 = 0;
+	int n2 = 0;
+	int i = 0;
+	int size = 1;
+	while(size < list -> n)
+	{
+		low = 0;
+		while(low + size < list -> n)
+		{
+			n1 = size;
+			if (low + size*2 < list -> n)
+			{
+				n2 = size;
+				/* code */
+			}
+			else
+			{
+				n2 = list -> n - low - size;
+			}
+
+			merge(list,temp,low,n1,n2);
+			low += (n1 + n2);
+		}
+		for (i = 0; i < list -> n; i++)
+		{
+			list -> D[i] = temp[i];
+			/* code */
+		}
+
+		size *= 2;
+	}
+}
+
 void printfArray(List list)
 {
 	int i = 0;
@@ -157,7 +225,8 @@ int main(int argc, char const *argv[])
 		printf("%d ",list.D[i].key);
 	}
 	printf("\n");
-	QuickSort(&list);
+	mergeSort(&list);
+	//QuickSort(&list);
 	//bubbleSort(&list);
 	//easyChoseSelect(&list);
 	for (i = 0; i < num; i++)
