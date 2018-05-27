@@ -82,12 +82,27 @@ void bubbleSort(List *list)
 int Part(List *list,int low,int high)
 {
 	int i = low;
+	//printf("%d\n",i );
 	int j = high + 1;
+	//printf("%d\n", j);
 	Entry pivot = list -> D[low];
 	do
 	{
-		do {i++;}while(list -> D[i].key < pivot.key);
-		do {j--;}while(list -> D[i].key > pivot.key);
+		do 
+		{
+			i++;
+			//printf("i's value is %d\n", i);
+		}while(list -> D[i].key < pivot.key);
+
+
+		do
+		{
+			j--;
+			//printf("%d\n", j);
+		} while(list -> D[j].key > pivot.key);
+
+		//printf("%d\n", i);
+		
 
 		if (i < j)
 		{
@@ -107,12 +122,15 @@ void quickSort(List *list,int low,int high)
 	if (low < high)
 	{
 		k = Part(list,low,high);
-		printf("%d\n",k);
-		printf("%s\n", "yes");
 		quickSort(list,low, k - 1);
 		quickSort(list,k + 1,high);
 		/* code */
 	}
+}
+
+void QuickSort(List *list)
+{
+	quickSort(list,0,list-> n - 1);
 }
 
 void printfArray(List list)
@@ -135,11 +153,11 @@ int main(int argc, char const *argv[])
 	list.n = num;
 	for(i = 0;i < num;i++)
 	{
-		list.D[i].key = rand()%30;
+		list.D[i].key = rand()%40;
 		printf("%d ",list.D[i].key);
 	}
 	printf("\n");
-	quickSort(&list,0,num - 1);
+	QuickSort(&list);
 	//bubbleSort(&list);
 	//easyChoseSelect(&list);
 	for (i = 0; i < num; i++)
