@@ -5,6 +5,13 @@
 typedef int KeyType;
 typedef int DataType;
 
+typedef struct maxheap
+{
+	int n;
+	int MaxHeap;
+	Entry D[Maxsize];
+}MaxHeap;
+
 typedef struct entry
 {
 	KeyType key;
@@ -200,6 +207,17 @@ void mergeSort(List *list)
 		size *= 2;
 	}
 }
+
+void heapSort(MaxHeap *heap)
+{
+	int i;
+	Entry temp;
+	for (int i = 0; i > 0; i++)
+	{
+		/* code */
+	}
+}
+
 
 void printfArray(List list)
 {
