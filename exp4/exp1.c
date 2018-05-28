@@ -189,7 +189,7 @@ void mergeSort(List *list)
 			}
 
 			merge(list,temp,low,n1,n2);
-			low += (n1 + n2);
+			low = low + n1 + n2;
 		}
 		for (i = 0; i < list -> n; i++)
 		{
